@@ -86,6 +86,9 @@ hook_post_compile="pwd"
 
 # Set the path the app is run from
 runtime_path=/app
+
+# Enable or disable additional test arguments
+test_args="--cover"
 ```
 
 
@@ -146,7 +149,7 @@ heroku config:set MY_VAR=the_value
   ```
 
 * The buildpack will execute the commands configured in `hook_pre_compile` and/or `hook_post_compile` in the root directory of your application before/after it has been compiled (respectively). These scripts can be used to build or prepare things for your application, for example compiling assets.
-* The buildpack will execute the commands configured in `hook_pre_fetch_dependencies` in the root directory of your application before it fetches the applicatoin dependencies. This script can be used to clean certain dependencies before fetching new ones.
+* The buildpack will execute the commands configured in `hook_pre_fetch_dependencies` in the root directory of your application before it fetches the application dependencies. This script can be used to clean certain dependencies before fetching new ones.
 
 
 #### Using older version of buildpack
@@ -166,6 +169,20 @@ We only create a new tag/release when we've made breaking changes. So consider a
 * Build scripts to build erlang are at <https://github.com/HashNuke/heroku-buildpack-elixir-otp-builds>
 * Sample app to test is available at <https://github.com/HashNuke/heroku-buildpack-elixir-test>
 
+## Testing
+
+To run tests
+```
+git clone https://github.com/HashNuke/heroku-buildpack-elixir
+export BUILDPACK="$(pwd)/heroku-buildpack-elixir"
+git clone https://github.com/jesseshieh/heroku-buildpack-testrunner
+git clone https://github.com/jesseshieh/shunit2
+export SHUNIT_HOME="$(pwd)/shunit2"
+cd heroku-buildpack-testrunner
+bin/run $BUILDPACK
+```
+
+See more info at https://github.com/jesseshieh/heroku-buildpack-testrunner/blob/master/README.md
 
 ## Credits
 
