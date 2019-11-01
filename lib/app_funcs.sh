@@ -101,7 +101,13 @@ function compile_app() {
 
   cd $build_path
   output_section "Compiling"
-  mix compile --force || exit 1
+
+  if [ -n "$hook_compile" ]; then
+     output_section "(using custom compile command)"
+     $hook_compile || exit 1
+  else
+     mix compile --force || exit 1
+  fi
 
   mix deps.clean --unused
 
@@ -161,7 +167,7 @@ function write_profile_d_script() {
 function write_export() {
   output_section "Writing export for multi-buildpack support"
 
-  local export_line="export PATH=$(platform_tools_path):$(erlang_path)/bin:$(elixir_path)/bin:\$PATH
+  local export_line="export PATH=$(platform_tools_path):$(erlang_path)/bin:$(elixir_path)/bin:$PATH
                      export LC_CTYPE=en_US.utf8"
 
   # Only write MIX_ENV to export if the application did not set MIX_ENV
