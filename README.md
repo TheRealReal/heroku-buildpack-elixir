@@ -1,5 +1,10 @@
 # Heroku Buildpack for Elixir
 
+This repository has been archived.
+
+📚 Archived Status:
+This repository is no longer actively maintained or updated. It is being preserved for historical reference or potential future use. Issues, pull requests, and contributions are no longer accepted.
+
 ## Features
 
 * **Easy configuration** with `elixir_buildpack.config` file
